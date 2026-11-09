@@ -1,0 +1,13 @@
+{
+  "name": "vibe-coding-without-slop",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bun run build.ts",
+    "shoot": "bun run scripts/shoot.ts",
+    "refresh": "bun run scripts/refresh-numbers.ts"
+  },
+  "engines": {
+    "bun": ">=1.4.0"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "asOf": {
+    "commit": "bf92120",
+    "date": "9 November 2026"
+  },
+  "git": {
+    "commits": 659,
+    "activeDays": 24,
+    "adrs": 22,
+    "workingNotes": 33,
+    "claudeLines": 264,
+    "claudeLinesM0": 55,
+    "issues": 82,
+    "mcpTools": 36,
+    "e2eJourneys": 95,
+    "tests": 1546
+  },
+  "sessions": {
+    "from": "15 October 2026",
+    "to": "9 November 2026",
+    "sessions": 29,
+    "hours": "≈79",
+    "questions": 674,
+    "yesToAll": 75,
+    "corrections": 60,
+    "gateRuns": "≈780",
+    "subagents": 244,
+    "reviewers": 205,
+    "outputTokens": "≈12.2 M",
+    "cacheTokens": "≈5.3 B"
+  },
+  "skills": {
+    "pinned": 38,
+    "used": 3
+  },
+  "slop83": {
+    "deadExports": 67,
+    "deadTypes": 16,
+    "conversions": 21,
+    "coverageFiles": 188,
+    "unregisteredPackages": 45
+  }
+}
