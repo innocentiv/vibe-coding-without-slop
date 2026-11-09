@@ -12,18 +12,21 @@ harness (`apps/app/e2e/gallery.ts`, `seed()`), photographs every screen, and sto
 database that `bun run dev` serves stays empty. And MCP's `session_log` cannot date a session, so a
 week of history cannot be logged through the product either.
 
-What's needed is a small cedo change: a command that runs the gallery's `seed()` against the
-development database, and prints the athlete's username and password. To be filed as a cedo issue
-before the recording.
+What's needed is a small cedo change, filed as
+[cedo #85](https://github.com/innocentiv/cedo/issues/85): a command, `bun run demo`, that serves
+the gallery's athlete from a database of its own, never the development one, and prints the API's
+address and the athlete's username and password.
 
 ## 2. Connect Claude Code, read-only
 
-With cedo running locally (`bun run db:up`, then `bun run dev`: the API on `localhost:3000`), sign
-in as the demo athlete, and under Settings → Access tokens create a token named `demo`. It is shown
-once. In a scratch directory, not the cedo checkout, so the agent has no code to read:
+Start `bun run demo` and note the address it prints. `bun run dev` alone serves the API on
+`localhost:3000`, but over an empty database. Sign in as the demo athlete, and under Settings →
+Access tokens create a token named `demo`; it is shown once. If #85 settles on printing a token,
+use that one instead. Then, in a scratch directory rather than the cedo checkout, so the agent has
+no code to read:
 
 ```bash
-claude mcp add --transport http cedo-demo http://localhost:3000/mcp \
+claude mcp add --transport http cedo-demo <the address>/mcp \
   --header "Authorization: Bearer <the token>"
 ```
 
