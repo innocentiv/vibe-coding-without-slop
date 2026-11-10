@@ -1,9 +1,9 @@
 # Vibe coding without slop
 
-The slides for a 28-minute talk at BolognaJS on 25 November 2026: *what kept an agent-built app
-honest*. The app is [cedo](https://github.com/innocentiv/cedo), a self-hosted workout tracker built
-almost entirely by Claude Code. The talk's research, the evidence behind every claim on a slide,
-is in cedo's `docs/research/2026-11-bolognajs-talk.md`.
+The slides for a 28-minute talk at BolognaJS on 25 November 2026, about how I keep the quality up
+when an AI agent writes the code. The app is [cedo](https://github.com/innocentiv/cedo), a
+self-hosted workout tracker built almost entirely by Claude Code. The research for the talk, with
+the evidence behind every claim on a slide, is in cedo's `docs/research/2026-11-bolognajs-talk.md`.
 
 **The deck is `index.html`: one file, no network, nothing to install.** Open it in a browser.
 
@@ -21,8 +21,12 @@ is in cedo's `docs/research/2026-11-bolognajs-talk.md`.
 
 The two windows follow each other, so either can drive. The presenter view's clock starts when you
 press **Start clock**, and says how far ahead or behind the plan you are; each slide carries its
-minutes (`data-minutes`). The notes are in Italian, as key phrases with timing marks; the opening,
-the thesis, the turn to #68 and the close are written out in full.
+minutes (`data-minutes`).
+
+The notes are in Italian, written as full sentences to say in your own words, with a time mark
+where a new point should start. A yellow **clic** tag marks where to press the key for the slide's
+next step, and grey lines are things to do, not to say. The passages with a yellow bar (the
+opening, the thesis, the introduction to #68 and the close) are meant to be said as written.
 
 Slides 1 to 18 are the talk; B1 to B7 are backups for questions.
 

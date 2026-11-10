@@ -663,7 +663,7 @@ body.is-presenter .deck {
 
 body.is-presenter .presenter {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: auto 1fr;
   gap: 18px 28px;
   position: fixed;
@@ -768,13 +768,13 @@ body.is-presenter .presenter {
 
 .presenter .notes-pane .notes {
   display: block;
-  font-size: 27px;
+  font-size: 24px;
   line-height: 1.42;
 }
 
 .presenter .notes-pane .notes p,
 .presenter .notes-pane .notes li {
-  font-size: 27px;
+  font-size: 24px;
   line-height: 1.42;
   max-width: none;
 }
@@ -789,7 +789,7 @@ body.is-presenter .presenter {
 }
 
 .presenter .notes-pane .notes .full {
-  font-size: 29px;
+  font-size: 25px;
   color: var(--chalk);
   border-left: 4px solid var(--yellow);
   padding-left: 16px;
@@ -801,6 +801,26 @@ body.is-presenter .presenter {
   font-family: var(--display);
   font-weight: 700;
   margin-right: 6px;
+}
+
+/* When to press the key for the slide's next step. */
+.presenter .notes-pane .notes .cue {
+  display: inline-block;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1.3;
+  color: var(--floor);
+  background: var(--yellow);
+  border-radius: 5px;
+  padding: 0 9px;
+  margin-right: 6px;
+  vertical-align: 0.1em;
+}
+
+/* Something to do on stage, not to say. */
+.presenter .notes-pane .notes .dir {
+  color: var(--dust);
 }
 
 /* ——— Help overlay ——— */

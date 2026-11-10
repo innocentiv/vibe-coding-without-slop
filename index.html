@@ -6,7 +6,7 @@
     <title>Vibe coding without slop</title>
     <meta
       name="description"
-      content="BolognaJS, 25 November 2026: what kept an agent-built app honest. Slides with presenter notes."
+      content="BolognaJS, 25 November 2026: how I keep the quality up when an AI agent writes the code. Slides with presenter notes."
     />
     <style>
 /*
@@ -674,7 +674,7 @@ body.is-presenter .deck {
 
 body.is-presenter .presenter {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: auto 1fr;
   gap: 18px 28px;
   position: fixed;
@@ -779,13 +779,13 @@ body.is-presenter .presenter {
 
 .presenter .notes-pane .notes {
   display: block;
-  font-size: 27px;
+  font-size: 24px;
   line-height: 1.42;
 }
 
 .presenter .notes-pane .notes p,
 .presenter .notes-pane .notes li {
-  font-size: 27px;
+  font-size: 24px;
   line-height: 1.42;
   max-width: none;
 }
@@ -800,7 +800,7 @@ body.is-presenter .presenter {
 }
 
 .presenter .notes-pane .notes .full {
-  font-size: 29px;
+  font-size: 25px;
   color: var(--chalk);
   border-left: 4px solid var(--yellow);
   padding-left: 16px;
@@ -812,6 +812,26 @@ body.is-presenter .presenter {
   font-family: var(--display);
   font-weight: 700;
   margin-right: 6px;
+}
+
+/* When to press the key for the slide's next step. */
+.presenter .notes-pane .notes .cue {
+  display: inline-block;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1.3;
+  color: var(--floor);
+  background: var(--yellow);
+  border-radius: 5px;
+  padding: 0 9px;
+  margin-right: 6px;
+  vertical-align: 0.1em;
+}
+
+/* Something to do on stage, not to say. */
+.presenter .notes-pane .notes .dir {
+  color: var(--dust);
 }
 
 /* ——— Help overlay ——— */
@@ -888,7 +908,7 @@ body.is-presenter .presenter {
           <circle cx="256" cy="256" r="30" fill="#1b1c1e" />
         </svg>
         <h1>Vibe coding without slop</h1>
-        <div class="subtitle">What kept an agent-built app honest</div>
+        <div class="subtitle">How I keep the quality up when an AI agent writes the code</div>
         <div class="byline">
           Valerio Innocenti Sedili
           <span class="muted">github.com/innocentiv</span>
@@ -896,12 +916,13 @@ body.is-presenter .presenter {
         </div>
         <aside class="notes">
           <p class="full">
-            Buonasera. Stasera vi racconto come ho costruito cedo, un'app per allenarsi in
-            palestra, quasi tutta con un agente: Claude Code. E vi racconto perché, pur non
-            leggendo quasi mai il codice, il risultato regge.
+            Buonasera a tutti. Stasera vi racconto come ho costruito cedo, un'app per segnare gli
+            allenamenti in palestra, facendo scrivere quasi tutto il codice a un agente, Claude
+            Code. E soprattutto vi racconto che cosa ho messo in piedi perché il codice restasse di
+            buona qualità, anche se io non lo leggo quasi mai.
           </p>
           <ul>
-            <li><span class="t">0:20</span> Non è una demo di prompt: è cosa ha tenuto onesto il codice.</li>
+            <li><span class="t">0:20</span> Non è un talk su come si scrivono i prompt. Parlo dei controlli che stanno attorno all'agente, e di una volta in cui non sono bastati.</li>
           </ul>
         </aside>
       </section>
@@ -913,40 +934,42 @@ body.is-presenter .presenter {
           <div class="quote">I “Accept All” always, I don't read the diffs anymore</div>
           <div class="quote muted">It's not too bad for throwaway weekend projects</div>
         </div>
-        <p class="who">Andrej Karpathy, coining “vibe coding”, 2 February 2025</p>
+        <p class="who">Andrej Karpathy, in the post where he coined “vibe coding”, 2 February 2025</p>
         <footer class="evidence">x.com/karpathy/status/1886192184808149383</footer>
         <aside class="notes">
           <p class="full">
-            Febbraio 2025: Karpathy inventa il termine “vibe coding”. Dimenticati che il codice
-            esiste, accetta tutto, non leggere i diff. E aggiunge: va bene per i progetti usa e
-            getta del weekend.
+            Il termine “vibe coding” lo ha inventato Andrej Karpathy a febbraio 2025, in questo
+            post. Dice: dimenticatevi che il codice esiste; io accetto sempre tutto e i diff non li
+            leggo più. E poi aggiunge che non è male per i progettini del weekend, quelli usa e
+            getta.
           </p>
           <ul>
-            <li><span class="t">0:40</span> Quell'ultima frase è il punto: cosa succede quando il progetto non è usa e getta?</li>
-            <li>Leggere le tre righe con calma. Non commentarle troppo.</li>
+            <li><span class="t">0:40</span> A me interessa proprio l'ultima frase: che cosa succede se lavoro così su un progetto che non è usa e getta?</li>
+            <li class="dir">Leggi le tre frasi con calma, senza commentarle troppo.</li>
           </ul>
         </aside>
       </section>
 
-      <!-- ═══════════════════ 3. Me too, mostly ═══════════════════ -->
-      <section class="slide" data-minutes="1.5" data-title="Me too, mostly">
+      <!-- ═══════════════════ 3. I work like this too ═══════════════════ -->
+      <section class="slide" data-minutes="1.5" data-title="I work like this too">
         <div class="columns wide-left">
           <div>
-            <h2>Me too, mostly.</h2>
+            <h2>I work like this too</h2>
             <p class="lede">
-              I read the code when I'm curious. Never to approve a change.
+              I read the code out of curiosity, not to approve a change.
             </p>
-            <p class="lede muted">
-              And cedo is no weekend project: <span data-n="git.commits"></span> commits in
-              <span data-n="git.activeDays"></span> days of work, live, shared between people,
-              public, and on an iPhone.
+            <p class="muted" style="margin-top: 32px">
+              But cedo is not a weekend project: <span data-n="git.commits"></span> commits in
+              <span data-n="git.activeDays"></span> days of work, in production, with several
+              users, a public repository and an iPhone app.
             </p>
-            <div class="step" style="margin-top: 48px">
+            <div class="step" style="margin-top: 44px">
               <p class="muted">
-                Ghostty's rule: “The human-in-the-loop must fully understand all code.”
+                Ghostty's AI policy: “The human-in-the-loop must fully understand all code.”
               </p>
               <p class="point" style="margin-top: 14px">
-                On a personal project, proof replaced reading. At work, I'd side with Ghostty.
+                On a personal project I rely on tests and checks. At work I would read the code,
+                as Ghostty asks.
               </p>
             </div>
           </div>
@@ -957,16 +980,16 @@ body.is-presenter .presenter {
           </div>
         </div>
         <footer class="evidence">
-          Screenshots of a demo instance seeded with an invented athlete. Built with Claude Code:
-          Opus 5 in August, Opus 5.5 from October.
+          The screenshots are from a demo instance with made-up data. cedo was built with Claude
+          Code, on Opus 5 in August and Opus 5.5 from October.
         </footer>
         <aside class="notes">
           <ul>
-            <li><span class="t">0:00</span> Anch'io, quasi sempre. Leggo il codice per curiosità, mai per approvare.</li>
-            <li>Ma cedo non è un progetto del weekend: è online, multiutente, pubblico, ha un'app iPhone.</li>
-            <li><span class="t">0:30</span> Volume una volta sola, per la scala: commit, giorni, un ingegnere.</li>
-            <li><span class="t">0:50</span> → La posizione opposta, onestamente: Ghostty — “l'umano deve capire tutto il codice”. Willison — se l'hai rivisto e testato, non è vibe coding.</li>
-            <li>La mia risposta: su un progetto personale, la prova ha sostituito la lettura. Al lavoro, starei con Ghostty.</li>
+            <li><span class="t">0:00</span> Io lavoro più o meno così. Accetto quasi tutto, e il codice lo leggo quando sono curioso, non per decidere se una modifica va bene.</li>
+            <li>Però cedo non è un progettino del weekend: è in produzione, lo usano più persone, il repository è pubblico e c'è anche l'app per iPhone.</li>
+            <li><span class="t">0:30</span> Per dare un'idea delle dimensioni: <span data-n="git.commits"></span> commit in <span data-n="git.activeDays"></span> giorni di lavoro, e ci ho lavorato da solo. Questi numeri li dico qui e poi non ci torno.</li>
+            <li><span class="t">0:50</span> <span class="cue">clic</span> C'è chi la pensa all'opposto, ed è giusto dirlo. Ghostty, un terminale open source, chiede a chi contribuisce usando l'AI di capire fino in fondo tutto il codice. E Simon Willison dice che, se il codice l'hai riletto e testato, quello non è vibe coding: è normale sviluppo software.</li>
+            <li>La mia posizione: su un progetto personale mi fido di test e controlli, e il codice non lo leggo. Sul lavoro lo leggerei, come chiede Ghostty.</li>
           </ul>
         </aside>
       </section>
@@ -974,50 +997,53 @@ body.is-presenter .presenter {
       <!-- ═══════════════════ 4. What slop is ═══════════════════ -->
       <section class="slide" data-minutes="1" data-title="What slop is">
         <h2>
-          Slop is code that arrives faster than anyone reads it, understands it, or proves it
+          Slop is code written faster than anyone can read it, understand it, or check that it
           works.
         </h2>
         <p class="lede muted">
           “They all looked good. They were formally correct. Tests and checks passed.”
-          <span class="faint">(tldraw, on the AI pull requests it closed)</span>
+          <span class="faint">(tldraw, about the AI pull requests they closed)</span>
         </p>
         <div class="spacer"></div>
         <div class="columns wide-left">
-          <ul class="plated">
-            <li><span class="plate broke"></span>complexity, duplication, dead code</li>
-            <li><span class="plate broke"></span>tests that prove nothing, almost-right code</li>
-            <li><span class="plate broke"></span>security holes, ignored conventions, unwritten decisions</li>
-          </ul>
+          <div>
+            <p class="muted" style="font-size: 28px">What it leaves in a codebase:</p>
+            <ul class="plated" style="margin-top: 16px">
+              <li><span class="plate broke"></span>complexity, duplication, dead code</li>
+              <li><span class="plate broke"></span>tests that check nothing, code that is almost right</li>
+              <li><span class="plate broke"></span>security holes, ignored conventions, decisions nobody wrote down</li>
+            </ul>
+          </div>
           <div class="figures" style="margin-top: 40px">
             <div>
               <div class="figure-number">+41.6%</div>
-              <div class="figure-label">code complexity after adopting Cursor, and it lasts (He et al., MSR '26)</div>
+              <div class="figure-label">code complexity after a project adopts Cursor, and it stays that high (He et al., MSR '26)</div>
             </div>
             <div>
               <div class="figure-number">45%</div>
-              <div class="figure-label">of generated code failed security tests (Veracode, 2025)</div>
+              <div class="figure-label">of AI-generated code failed security tests (Veracode, 2025)</div>
             </div>
           </div>
         </div>
         <footer class="evidence">arxiv.org/abs/2511.04427, veracode.com/blog/genai-code-security-report, tldraw.dev/blog/stay-away-from-my-trash</footer>
         <aside class="notes">
           <p class="full">
-            La tesi di stasera: si può fare vibe coding senza slop. Ma prima, cos'è lo slop. Non
-            è una forma del codice: è come il codice arriva. Arriva più in fretta di quanto
-            qualcuno lo legga, lo capisca o dimostri che funziona.
+            La mia tesi è che si può fare vibe coding senza produrre slop. Prima però chiariamo che
+            cosa intendo per slop. Alla lettera è la sbobba; qui è il codice scritto più in fretta
+            di quanto si riesca a leggerlo, a capirlo o a verificare che funzioni.
           </p>
           <ul>
-            <li><span class="t">0:30</span> tldraw: “sembravano buone, test e check passavano”. Lo slop sembra buono.</li>
-            <li>Cosa lascia dietro di sé: la lista. Due numeri, poi basta numeri.</li>
-            <li>+41.6% complessità, e resta. 45% fallisce i test di sicurezza.</li>
+            <li><span class="t">0:30</span> tldraw ha chiuso le pull request generate con l'AI e lo ha spiegato così: sembravano tutte a posto, erano formalmente corrette, test e check passavano. È questo il problema dello slop: a prima vista sembra buono.</li>
+            <li>A sinistra, quello che lascia in una codebase. <span class="dir">Non leggere l'elenco: lo riprendo più avanti, voce per voce.</span></li>
+            <li>Due numeri soli, poi basta. Nei progetti che hanno adottato Cursor la complessità del codice è salita del 41,6% e non è più scesa. E il 45% del codice generato non ha passato i test di sicurezza di Veracode.</li>
           </ul>
         </aside>
       </section>
 
-      <!-- ═══════════════════ 5. Primer ═══════════════════ -->
-      <section class="slide" data-minutes="1" data-title="The cast">
+      <!-- ═══════════════════ 5. Who does what ═══════════════════ -->
+      <section class="slide" data-minutes="1" data-title="Who does what">
         <h2>Who does what</h2>
-        <svg class="figure diagram" viewBox="0 0 1376 600" style="margin-top: 36px" role="img" aria-label="I talk to Claude Code; it reads CLAUDE.md and the docs, uses pinned skills, spawns fresh subagents, runs the gate, and uses cedo through MCP.">
+        <svg class="figure diagram" viewBox="0 0 1376 600" style="margin-top: 36px" role="img" aria-label="I talk to Claude Code; it reads CLAUDE.md and the docs, uses saved skills, starts new subagents, runs the gate, and uses cedo through MCP.">
           <!-- edges -->
           <g stroke="var(--rule)" stroke-width="3" fill="none">
             <path d="M270 300 H330" />
@@ -1029,7 +1055,7 @@ body.is-presenter .presenter {
           </g>
           <!-- you -->
           <rect x="20" y="240" width="250" height="120" rx="12" fill="var(--surface)" stroke="var(--chalk)" stroke-width="3" />
-          <text x="44" y="292" class="d-title">You</text>
+          <text x="44" y="292" class="d-title">Me</text>
           <text x="44" y="324" class="d-sub">decide, answer, merge</text>
           <!-- agent -->
           <rect x="330" y="220" width="300" height="160" rx="12" fill="var(--surface)" stroke="var(--blue)" stroke-width="4" />
@@ -1039,52 +1065,53 @@ body.is-presenter .presenter {
           <!-- what it uses -->
           <rect x="730" y="32" width="320" height="100" rx="12" fill="var(--surface)" stroke="var(--rule)" stroke-width="2" />
           <text x="754" y="76" class="d-title">CLAUDE.md and docs</text>
-          <text x="754" y="108" class="d-sub">read every session: advice</text>
+          <text x="754" y="108" class="d-sub">rules it reads every session</text>
           <rect x="730" y="166" width="320" height="100" rx="12" fill="var(--surface)" stroke="var(--rule)" stroke-width="2" />
           <text x="754" y="210" class="d-title">Skills</text>
-          <text x="754" y="242" class="d-sub">recipes, pinned: grill, review</text>
+          <text x="754" y="242" class="d-sub">saved prompts, one per task</text>
           <rect x="730" y="300" width="320" height="100" rx="12" fill="var(--surface)" stroke="var(--rule)" stroke-width="2" />
           <text x="754" y="344" class="d-title">Subagents</text>
-          <text x="754" y="376" class="d-sub">fresh context: the reviewers</text>
+          <text x="754" y="376" class="d-sub">new agents with no context</text>
           <rect x="730" y="434" width="320" height="100" rx="12" fill="var(--surface)" stroke="var(--rule)" stroke-width="2" />
           <text x="754" y="478" class="d-title">The gate</text>
-          <text x="754" y="510" class="d-sub">lint, types, tests: law</text>
+          <text x="754" y="510" class="d-sub">runs lint, type check, tests</text>
           <!-- the product -->
           <rect x="1126" y="220" width="230" height="160" rx="12" fill="var(--surface)" stroke="var(--yellow)" stroke-width="4" />
           <text x="1150" y="282" class="d-title">cedo</text>
-          <text x="1150" y="316" class="d-sub">the product, with</text>
-          <text x="1150" y="344" class="d-sub">its own API for AIs</text>
+          <text x="1150" y="316" class="d-sub">the app; an AI can</text>
+          <text x="1150" y="344" class="d-sub">use it through MCP</text>
           <rect x="770" y="556" width="96" height="36" rx="6" fill="var(--floor)" />
           <text x="818" y="582" text-anchor="middle" class="d-sub" style="fill: var(--chalk)">MCP</text>
         </svg>
         <aside class="notes">
           <ul>
-            <li><span class="t">0:00</span> Un minuto di vocabolario, per chi non usa questi strumenti.</li>
-            <li>Io parlo con l'agente. L'agente legge CLAUDE.md a ogni sessione: sono consigli, non regole.</li>
-            <li>Le skill: ricette con un nome. I subagent: agenti nuovi, senza contesto, che uso per le review.</li>
-            <li><span class="t">0:40</span> Il gate: lint, tipi, test. Quella è la legge. E cedo ha un server MCP: l'agente usa il prodotto che costruisce.</li>
+            <li><span class="t">0:00</span> Un minuto per metterci d'accordo sui termini, per chi questi strumenti non li usa.</li>
+            <li>Io parlo con l'agente, Claude Code. A ogni sessione l'agente legge CLAUDE.md, un file con le istruzioni del progetto. Di solito le segue, ma niente lo obbliga.</li>
+            <li>Le skill sono istruzioni salvate per un compito preciso, per esempio una code review. I subagent sono altri agenti che partono da zero, senza sapere niente della conversazione: li uso per le review.</li>
+            <li><span class="t">0:40</span> Il gate è un solo comando, <code>bun run check</code>, che lancia lint, controllo dei tipi e test. Se fallisce, non si fa il commit.</li>
+            <li>Infine cedo ha un server MCP, cioè un'AI può usare l'app con i permessi di un utente. Lo stesso agente che la scrive la può anche usare.</li>
           </ul>
         </aside>
       </section>
 
       <!-- ═══════════════════ 6. What makes it go: the loop ═══════════════════ -->
       <section class="slide" data-minutes="1.75" data-title="What makes it go: the loop">
-        <h2>What makes it go: a loop that keeps my part small</h2>
-        <svg class="figure diagram" viewBox="-70 0 1516 525" style="margin-top: 28px" role="img" aria-label="The loop: I pick an issue; the agent grills me; I answer; the agent writes the decision, a failing test, the code, runs the gate, has two fresh agents review it, fixes what they find; I merge; CI runs the gate again and deploys that commit; I check the phone.">
+        <h2>What makes it go: the same loop for every feature</h2>
+        <svg class="figure diagram" viewBox="-70 0 1516 525" style="margin-top: 28px" role="img" aria-label="The loop: I pick an issue; the agent asks me questions; I answer; the agent writes down the decision, writes a failing test, then the code, runs the gate, has two new agents review it and fixes what they find; I merge; CI runs the gate again and deploys the commit; I try it on my phone.">
           <ellipse cx="688" cy="250" rx="470" ry="178" fill="none" stroke="var(--rule)" stroke-width="3" />
           <circle cx="688.0" cy="72.0" r="15" fill="var(--chalk)" /><circle cx="688.0" cy="72.0" r="5.5" fill="var(--floor)" />
           <text x="688.0" y="32.0" text-anchor="middle" class="d-label">I pick an issue</text>
           <circle cx="923.0" cy="95.8" r="15" fill="var(--blue)" /><circle cx="923.0" cy="95.8" r="5.5" fill="var(--floor)" />
-          <text x="950" y="56" text-anchor="start" class="d-label">It grills me</text>
-          <text x="950" y="82" text-anchor="start" class="d-sub">a recommended answer each</text>
+          <text x="950" y="56" text-anchor="start" class="d-label">It asks me questions</text>
+          <text x="950" y="82" text-anchor="start" class="d-sub">each with a suggested answer</text>
           <circle cx="1095.0" cy="161.0" r="15" fill="var(--chalk)" /><circle cx="1095.0" cy="161.0" r="5.5" fill="var(--floor)" />
           <text x="1124" y="150" text-anchor="start" class="d-label">I answer</text>
-          <text x="1124" y="176" text-anchor="start" class="d-sub">“yes to all”, or a paragraph</text>
+          <text x="1124" y="176" text-anchor="start" class="d-sub">often just “yes to all”</text>
           <circle cx="1158.0" cy="250.0" r="15" fill="var(--blue)" /><circle cx="1158.0" cy="250.0" r="5.5" fill="var(--floor)" />
           <text x="1188.0" y="258.0" text-anchor="start" class="d-label">ADR and glossary</text>
-          <text x="1188.0" y="284.0" text-anchor="start" class="d-sub">decided in writing first</text>
+          <text x="1188.0" y="284.0" text-anchor="start" class="d-sub">decision written down</text>
           <circle cx="1095.0" cy="339.0" r="15" fill="var(--blue)" /><circle cx="1095.0" cy="339.0" r="5.5" fill="var(--floor)" />
-          <text x="1121.0" y="362.0" text-anchor="start" class="d-label">A test, seen red</text>
+          <text x="1121.0" y="362.0" text-anchor="start" class="d-label">A failing test</text>
           <circle cx="923.0" cy="404.2" r="15" fill="var(--blue)" /><circle cx="923.0" cy="404.2" r="5.5" fill="var(--floor)" />
           <text x="938.0" y="438.1" text-anchor="start" class="d-label">The code</text>
           <circle cx="688.0" cy="428.0" r="15" fill="var(--blue)" /><circle cx="688.0" cy="428.0" r="5.5" fill="var(--floor)" />
@@ -1092,17 +1119,17 @@ body.is-presenter .presenter {
           <text x="688.0" y="510.0" text-anchor="middle" class="d-sub">bun run check</text>
           <circle cx="453.0" cy="404.2" r="15" fill="var(--blue)" /><circle cx="453.0" cy="404.2" r="5.5" fill="var(--floor)" />
           <text x="438.0" y="438.1" text-anchor="end" class="d-label">Review</text>
-          <text x="438.0" y="464.1" text-anchor="end" class="d-sub">two fresh agents</text>
+          <text x="438.0" y="464.1" text-anchor="end" class="d-sub">by two new agents</text>
           <circle cx="281.0" cy="339.0" r="15" fill="var(--blue)" /><circle cx="281.0" cy="339.0" r="5.5" fill="var(--floor)" />
-          <text x="255.0" y="362.0" text-anchor="end" class="d-label">Review fixes</text>
+          <text x="255.0" y="362.0" text-anchor="end" class="d-label">Fixes from the review</text>
           <text x="255.0" y="388.0" text-anchor="end" class="d-sub">one commit each</text>
           <circle cx="218.0" cy="250.0" r="15" fill="var(--chalk)" /><circle cx="218.0" cy="250.0" r="5.5" fill="var(--floor)" />
           <text x="188.0" y="258.0" text-anchor="end" class="d-label">I merge</text>
           <circle cx="281.0" cy="161.0" r="15" fill="var(--faint)" /><circle cx="281.0" cy="161.0" r="5.5" fill="var(--floor)" />
-          <text x="255.0" y="154.0" text-anchor="end" class="d-label">CI: the gate again</text>
-          <text x="255.0" y="180.0" text-anchor="end" class="d-sub">then deploys that commit</text>
+          <text x="255.0" y="154.0" text-anchor="end" class="d-label">CI runs the gate again</text>
+          <text x="255.0" y="180.0" text-anchor="end" class="d-sub">and deploys the commit</text>
           <circle cx="453.0" cy="95.8" r="15" fill="var(--chalk)" /><circle cx="453.0" cy="95.8" r="5.5" fill="var(--floor)" />
-          <text x="426" y="66" text-anchor="end" class="d-label">I check the phone</text>
+          <text x="426" y="66" text-anchor="end" class="d-label">I try it on my phone</text>
           <!-- what went round, since October -->
           <text x="688" y="214" text-anchor="middle" class="d-count"><tspan data-n="sessions.questions"></tspan> questions</text>
           <text x="688" y="262" text-anchor="middle" class="d-count"><tspan data-n="sessions.gateRuns"></tspan> gate runs</text>
@@ -1112,28 +1139,31 @@ body.is-presenter .presenter {
         <footer class="evidence">
           <span class="plate" style="color: var(--chalk)"></span> me
           &nbsp; <span class="plate agent"></span> the agent
-          &nbsp; <span class="plate faint"></span> CI. Counts from the session transcripts.
+          &nbsp; <span class="plate faint"></span> CI. Counted from the Claude Code session transcripts.
         </footer>
         <aside class="notes">
           <ul>
-            <li><span class="t">0:00</span> Cosa fa andare il progetto: un ciclo in cui la mia parte è piccola.</li>
-            <li>Bianco io, blu l'agente. Io scelgo, rispondo, faccio merge, guardo il telefono.</li>
-            <li><span class="t">0:30</span> L'agente mi interroga: ogni domanda con una risposta consigliata. Poi la decisione per iscritto, un test visto rosso, il codice.</li>
-            <li><span class="t">1:00</span> Il gate, poi due agenti nuovi fanno la review: uno sugli standard, uno sulla spec. Io non chiedo la review: le regole la chiedono.</li>
-            <li>I numeri al centro: domande, esecuzioni del gate, revisori.</li>
+            <li><span class="t">0:00</span> La prima domanda: che cosa fa andare avanti il progetto? Ogni feature segue lo stesso giro, e la mia parte è piccola.</li>
+            <li>In bianco quello che faccio io, in blu quello che fa l'agente. Io scelgo l'issue, rispondo alle domande, faccio il merge e provo il risultato sul telefono.</li>
+            <li><span class="t">0:30</span> Prima di scrivere codice l'agente mi fa delle domande, e per ognuna mi propone la risposta che darebbe lui. Poi mette per iscritto la decisione, scrive un test che fallisce e solo dopo il codice.</li>
+            <li><span class="t">1:00</span> Quando il gate passa, due agenti che partono da zero fanno la review: uno guarda gli standard del progetto, l'altro controlla che il codice faccia quello che chiedeva l'issue. La review non la chiedo io: è scritta nelle regole, e l'agente la lancia da solo.</li>
+            <li>Al centro, i numeri di tre settimane e mezzo: le domande che mi ha fatto, le volte che ha lanciato il gate, gli agenti usati per le review.</li>
           </ul>
         </aside>
       </section>
 
-      <!-- ═══════════════════ 7. What makes it go: the false claim ═══════════════════ -->
-      <section class="slide" data-minutes="1.5" data-title="What makes it go: the false claim">
-        <h3 class="muted">An issue names the process, not just the feature</h3>
-        <p class="lede">
-          “… the 8 → 9 → 9 bug as a regression test proven red on main; … a perf guard for the
-          target read; <code>bun run check</code> green”
-          <span class="faint">(#57)</span>
+      <!-- ═══════════════════ 7. What makes it go: a wrong claim in a commit ═══════════════════ -->
+      <section class="slide" data-minutes="1.5" data-title="What makes it go: a wrong claim in a commit">
+        <h3 class="muted">An issue says what to build, and how to prove that it works</h3>
+        <p class="lede" style="margin-top: 18px; font-size: 36px">
+          “… a regression test proven red on main; … a perf guard for the target read;
+          <code>bun run check</code> green”
+          <span class="faint">(from issue #57)</span>
         </p>
-        <div class="stack" style="margin-top: 52px">
+        <p style="margin-top: 24px; max-width: none">
+          The agent can be wrong and still sound sure of itself. One of its commit messages said:
+        </p>
+        <div class="stack" style="margin-top: 22px">
           <div class="commit broke">
             <div class="hash">a3ff47c, 23 August</div>
             <div class="subject">M4: exercises and media</div>
@@ -1143,7 +1173,7 @@ body.is-presenter .presenter {
             </blockquote>
           </div>
           <div class="commit held step">
-            <div class="hash">25a7198, the same day</div>
+            <div class="hash">25a7198, the same day, after a code review</div>
             <div class="subject">Fix all 15 findings from the M4 code review</div>
             <blockquote>
               Postgres seq-scanned and sorted every visible exercise on every page. My M4 commit
@@ -1154,39 +1184,39 @@ body.is-presenter .presenter {
         <footer class="evidence">github.com/innocentiv/cedo: issue #57, commits a3ff47c and 25a7198</footer>
         <aside class="notes">
           <ul>
-            <li><span class="t">0:00</span> Un'issue qui non descrive solo la feature: descrive il processo. Regressione vista rossa, guardia di performance, gate verde.</li>
-            <li><span class="t">0:25</span> Primo incidente. L'agente scrive nel messaggio di commit: “legge dritto giù per l'indice”. Falso.</li>
-            <li>→ Avanti: la review successiva, lo stesso giorno, lo trova e l'agente lo scrive: “era falso”.</li>
-            <li><span class="t">1:10</span> L'agente può sbagliare con sicurezza, per iscritto. Per questo la review viene prima di costruirci sopra.</li>
+            <li><span class="t">0:00</span> Qui un'issue non dice solo che cosa costruire: dice anche come si dimostra che funziona. In questa c'è scritto che servono un test di regressione che fallisca su main, un controllo sulle performance e il gate verde.</li>
+            <li><span class="t">0:25</span> Serve perché l'agente può sbagliare restando sicurissimo di sé. In questo messaggio di commit scrive che la query della paginazione usa direttamente l'indice. Non era vero.</li>
+            <li><span class="cue">clic</span> Lo stesso giorno la code review se ne accorge: Postgres faceva un sequential scan e riordinava tutti gli esercizi a ogni pagina. E l'agente lo scrive nel commit dopo: quello che avevo scritto era falso.</li>
+            <li><span class="t">1:10</span> Per questo la review si fa alla fine di ogni pezzo di lavoro, prima di costruirci sopra altro.</li>
           </ul>
         </aside>
       </section>
 
-      <!-- ═══════════════════ 8. What keeps it secure: five times ═══════════════════ -->
-      <section class="slide" data-minutes="1.75" data-title="What keeps it secure: five times">
-        <h2>The access rule “had been fixed five times.”</h2>
-        <p class="lede muted">“Each fix was correct; the shape that produced them was not.”</p>
-        <p class="lede step" style="margin-top: 56px">So it stopped being a rule to remember:</p>
-        <ul class="plated step">
-          <li><span class="plate held"></span><span>every read goes through a relation: <code>visibleWorkouts(caller)</code></span></li>
-          <li><span class="plate held"></span><span>importing a raw owned table fails lint</span></li>
-          <li><span class="plate held"></span><span>raw SQL naming one fails a source scan</span></li>
-          <li><span class="plate held"></span><span>a test reads every GET route and MCP tool as someone just removed from the group</span></li>
+      <!-- ═══════════════════ 8. What keeps it secure: the access check ═══════════════════ -->
+      <section class="slide" data-minutes="1.75" data-title="What keeps it secure: the access check">
+        <h2>The same access check had to be fixed five times</h2>
+        <p class="lede muted">It was a condition repeated by hand in every query.</p>
+        <p class="lede step" style="margin-top: 44px">Now it is in one place, and lint and two tests make sure nothing skips it:</p>
+        <ul class="plated step" style="margin-top: 30px">
+          <li><span class="plate held"></span><span>every read goes through a function like <code>visibleWorkouts(caller)</code></span></li>
+          <li><span class="plate held"></span><span>lint fails if code imports one of the protected tables directly</span></li>
+          <li><span class="plate held"></span><span>a test fails if raw SQL names one of them</span></li>
+          <li><span class="plate held"></span><span>another test calls every GET route and MCP tool as a user who has just been removed from a group</span></li>
         </ul>
         <footer class="evidence">docs/adr/0019-visible-relations.md, 16 October; db/visible.ts, db/raw-sql.test.ts, test/membership-lost.test.ts</footer>
         <aside class="notes">
           <ul>
-            <li><span class="t">0:00</span> cedo è condiviso: gruppi, membri, persone rimosse. La regola d'accesso era un predicato da ricordare in ogni query.</li>
-            <li>Corretta cinque volte. Ogni correzione giusta; la forma che le produceva, sbagliata.</li>
-            <li><span class="t">0:40</span> → Quindi niente più memoria: una relazione da cui leggere, il lint che vieta le tabelle grezze, una scansione dell'SQL.</li>
-            <li><span class="t">1:10</span> E un test che legge ogni rotta e ogni tool MCP come una persona appena rimossa dal gruppo. Lo stesso tipo di buco di Lovable: 170 app esposte senza row-level security.</li>
+            <li><span class="t">0:00</span> Seconda domanda: che cosa lo rende sicuro? In cedo i dati sono condivisi: ci sono gruppi, membri, e persone che a un certo punto vengono tolte da un gruppo. La regola su chi può vedere che cosa era una condizione da ripetere a mano in ogni query.</li>
+            <li>È stata dimenticata o scritta male cinque volte. Ogni correzione era giusta, ma il problema stava a monte: una regola che funziona solo se ti ricordi di applicarla.</li>
+            <li><span class="t">0:40</span> <span class="cue">clic</span> Adesso la condizione sta in un posto solo. <span class="cue">clic</span> Ogni lettura passa da una funzione che restituisce soltanto le righe che quell'utente può vedere. Se il codice importa direttamente una di quelle tabelle, fallisce il lint. Se le nomina in una query SQL scritta a mano, fallisce un test.</li>
+            <li><span class="t">1:10</span> E un altro test toglie un utente da un gruppo e poi chiama, a nome suo, tutte le rotte GET e tutti i tool MCP. Serve contro lo stesso tipo di buco che ha avuto Lovable: 170 app esposte perché mancava la row-level security.</li>
           </ul>
         </aside>
       </section>
 
-      <!-- ═══════════════════ 9. What keeps it secure: exhaustive ═══════════════════ -->
-      <section class="slide" data-minutes="1.5" data-title="What keeps it secure: exhaustive">
-        <h3 class="muted">A security test that is exhaustive by construction</h3>
+      <!-- ═══════════════════ 9. What keeps it secure: a test over every route ═══════════════════ -->
+      <section class="slide" data-minutes="1.5" data-title="What keeps it secure: a test over every route">
+        <h3 class="muted">This test fails when a GET route has no access test</h3>
         <pre style="margin-top: 32px"><span class="file">apps/api/src/test/membership-lost.test.ts</span>test('every GET route has a case, and every case is a GET route', () =&gt; {
   const routes = createApp()
     .routes.filter((r) =&gt; r.method === 'GET')
@@ -1196,28 +1226,29 @@ body.is-presenter .presenter {
   <mark>expect(routes.filter((r) =&gt; !covered.includes(r))).toEqual([])</mark>
   expect(covered.filter((c) =&gt; !routes.includes(c))).toEqual([])
 })</pre>
-        <p class="lede">A new read path cannot ship without its isolation case.</p>
-        <ul class="plated step" style="margin-top: 36px">
-          <li><span class="plate broke"></span><span>The repository is clean. The session transcripts on my disk are not: whatever you type is kept.</span></li>
-          <li><span class="plate broke"></span><span>“Act on the owner's words only”: no stranger's issue has tested it yet.</span></li>
+        <p class="lede" style="margin-top: 28px">A new GET route with no case here makes the gate fail.</p>
+        <ul class="plated step" style="margin-top: 24px">
+          <li style="max-width: none"><span class="plate broke"></span><span>Not covered: secrets I type into a session stay in its transcript, on my disk.</span></li>
+          <li style="max-width: none"><span class="plate broke"></span><span>Not tested yet: the agent is told to ignore instructions in other people's issues, but nobody else has opened one.</span></li>
         </ul>
         <aside class="notes">
           <ul>
-            <li><span class="t">0:00</span> Questo è il test: prende le rotte dall'app stessa. Una rotta nuova senza il suo caso fa fallire il gate.</li>
-            <li>Lo stesso per i tool MCP. Esaustivo per costruzione, non per disciplina.</li>
-            <li><span class="t">0:45</span> → Due cose oneste. I transcript delle sessioni tengono tutto quello che scrivi, anche un token: stanno fuori dal repo e ci devono restare.</li>
-            <li>E la regola “agisci solo sulle parole del proprietario”: il repo è pubblico, ma nessun estraneo l'ha ancora messa alla prova.</li>
+            <li><span class="t">0:00</span> Questo è il test di prima. L'elenco delle rotte non è scritto a mano: lo chiede all'applicazione. Se aggiungo una rotta GET e non aggiungo qui il caso che ne verifica i permessi, il test fallisce, e con lui il gate.</li>
+            <li>Per i tool MCP c'è lo stesso controllo. Così non serve che qualcuno si ricordi di scrivere il test.</li>
+            <li><span class="t">0:45</span> <span class="cue">clic</span> Due cose che invece non sono coperte, e che è giusto dire. La prima: Claude Code salva sul mio disco la trascrizione di ogni sessione, con tutto quello che scrivo o incollo, password e token compresi. Nel repository non finisce niente, ma quei file vanno trattati come dati sensibili.</li>
+            <li>La seconda: il repository è pubblico e l'agente legge le issue. Nelle istruzioni c'è scritto di fare solo quello che chiedo io e di trattare tutto il resto come semplice testo. Però finora nessun altro ha aperto un'issue, quindi non so se regge davvero.</li>
           </ul>
         </aside>
       </section>
 
-      <!-- ═══════════════════ 10. What keeps it clean: lint is law ═══════════════════ -->
-      <section class="slide" data-minutes="2" data-title="What keeps it clean: lint is law (live)">
-        <h2>CLAUDE.md is advice. Lint is law.</h2>
+      <!-- ═══════════════════ 10. What keeps it clean: rules in lint (live demo) ═══════════════════ -->
+      <section class="slide" data-minutes="2" data-title="What keeps it clean: rules in lint (live demo)">
+        <h2>What keeps it clean: the rules are enforced by lint</h2>
         <p class="lede muted">
-          Claude Code's own docs call CLAUDE.md “context, not enforced configuration”.
+          The agent can ignore CLAUDE.md: Claude Code's docs call it “context, not enforced
+          configuration”.
         </p>
-        <p class="lede">Live: I make the app import the API.</p>
+        <p class="lede">Live demo: I import backend code into the frontend app.</p>
         <pre class="terminal step" style="margin-top: 36px"><span class="prompt">$ bun run lint</span>
 apps/app/src/today.ts:1:1: <span class="error">error eslint(no-restricted-imports):</span>
   '@cedo/api' import is restricted from being used by a pattern.
@@ -1226,20 +1257,20 @@ apps/app/src/today.ts:1:1: <span class="error">error eslint(no-restricted-import
         <footer class="evidence">apps/app/.oxlintrc.json; code.claude.com/docs/en/memory</footer>
         <aside class="notes">
           <ul>
-            <li><span class="t">0:00</span> Cosa tiene pulito il codice. CLAUDE.md è un consiglio: l'agente lo legge, ma può ignorarlo. Lo dice la documentazione stessa.</li>
-            <li><span class="t">0:20</span> DEMO DAL VIVO: nel terminale, aggiungo <code>import { createApp } from '@cedo/api'</code> a un file dell'app ed eseguo <code>bun run lint</code>.</li>
-            <li>Se la demo non parte: → mostra l'output registrato.</li>
-            <li><span class="t">1:20</span> Il punto è il messaggio: è scritto per l'agente. Dice cosa non fare, cosa fare invece, e dove sta il perché.</li>
-            <li>Quasi ogni regola di CLAUDE.md è anche un lint, un test, un tipo o un passo di CI.</li>
+            <li><span class="t">0:00</span> Terza domanda: che cosa tiene pulito il codice? CLAUDE.md da solo non basta: l'agente lo legge ma può anche non seguirlo, e lo dice la documentazione stessa di Claude Code. Per questo le regole importanti le faccio controllare al lint.</li>
+            <li><span class="t">0:20</span> <span class="dir">Demo dal vivo.</span> In cedo il frontend non deve mai importare codice dal backend. Apro un file dell'app, aggiungo <code>import { createApp } from '@cedo/api'</code> e lancio <code>bun run lint</code>.</li>
+            <li class="dir">Se la demo non parte: clic, e mostro l'output registrato.</li>
+            <li><span class="t">1:20</span> Guardate il messaggio di errore: è scritto pensando all'agente. Dice che cosa non si può fare, che cosa usare al suo posto e in quale documento è spiegato il motivo. L'agente lo legge e si corregge da solo.</li>
+            <li>Quasi ogni regola di CLAUDE.md è anche una regola di lint, un test, un tipo o un passo della CI.</li>
           </ul>
         </aside>
       </section>
 
       <!-- ═══════════════════ 11. What keeps it clean: one schema ═══════════════════ -->
-      <section class="slide" data-minutes="1.75" data-title="What keeps it clean: one schema, watch it fail">
+      <section class="slide" data-minutes="1.75" data-title="What keeps it clean: one schema, and tests seen failing">
         <div class="columns">
           <div>
-            <h3>One schema, four places that use it</h3>
+            <h3>One schema shared by API, MCP and app</h3>
             <svg class="figure diagram" viewBox="0 0 640 430" style="margin-top: 30px" role="img" aria-label="ExerciseCreateRequest, one Zod schema in the contract, is the HTTP route's body, the MCP tool's input schema, and the app's request type. The route and the tool both call the same service function, which writes the database.">
               <g stroke="var(--rule)" stroke-width="3" fill="none">
                 <path d="M320 96 V 136 H 100 V 168" />
@@ -1251,19 +1282,19 @@ apps/app/src/today.ts:1:1: <span class="error">error eslint(no-restricted-import
               </g>
               <rect x="120" y="10" width="400" height="86" rx="12" fill="var(--surface)" stroke="var(--yellow)" stroke-width="4" />
               <text x="320" y="50" text-anchor="middle" class="d-title">ExerciseCreateRequest</text>
-              <text x="320" y="80" text-anchor="middle" class="d-sub">one Zod schema, in the contract</text>
+              <text x="320" y="80" text-anchor="middle" class="d-sub">one Zod schema, in a shared package</text>
               <rect x="0" y="168" width="200" height="70" rx="12" fill="var(--surface)" stroke="var(--rule)" stroke-width="2" />
-              <text x="100" y="212" text-anchor="middle" class="d-label">the route</text>
+              <text x="100" y="212" text-anchor="middle" class="d-label">the HTTP route</text>
               <rect x="220" y="168" width="200" height="70" rx="12" fill="var(--surface)" stroke="var(--rule)" stroke-width="2" />
               <text x="320" y="212" text-anchor="middle" class="d-label">the MCP tool</text>
               <rect x="440" y="168" width="200" height="70" rx="12" fill="var(--surface)" stroke="var(--rule)" stroke-width="2" />
               <text x="540" y="212" text-anchor="middle" class="d-label">the app</text>
               <rect x="50" y="300" width="320" height="70" rx="12" fill="var(--surface)" stroke="var(--blue)" stroke-width="3" />
               <text x="210" y="344" text-anchor="middle" class="d-label">one service function</text>
-              <text x="210" y="420" text-anchor="middle" class="d-sub">the database, through it</text>
+              <text x="210" y="420" text-anchor="middle" class="d-sub">which writes to the database</text>
             </svg>
           </div>
-          <pre style="margin-top: 62px; font-size: 20px"><span class="file">the route</span>.post('/', ({ caller, body }) =&gt;
+          <pre style="margin-top: 62px; font-size: 20px"><span class="file">the HTTP route</span>.post('/', ({ caller, body }) =&gt;
   <mark>ExerciseService.create(caller, body)</mark>,
   { body: ExerciseCreateRequest })
 
@@ -1276,22 +1307,22 @@ apps/app/src/today.ts:1:1: <span class="error">error eslint(no-restricted-import
 …))</pre>
         </div>
         <ul class="plated step" style="margin-top: 30px">
-          <li><span class="plate broke"></span><span>A race test passed one run in seven with the bug still in. Two guard tests stayed green with their guard deleted.</span></li>
-          <li class="point"><span class="plate"></span><span>So: watch every test fail before you trust it.</span></li>
+          <li style="max-width: none"><span class="plate broke"></span><span>One race-condition test still passed 1 run in 7 while the bug was in the code. Two others kept passing after we deleted the check they were meant to test.</span></li>
+          <li class="point" style="max-width: none"><span class="plate"></span><span>Since then, every new test must fail on the broken code before we rely on it.</span></li>
         </ul>
         <aside class="notes">
           <ul>
-            <li><span class="t">0:00</span> Uno schema Zod, scritto una volta nel contract. La rotta HTTP, il tool MCP che il modello legge, il client dell'app: tutti lo stesso.</li>
-            <li>A destra: la rotta e il tool chiamano la stessa funzione del service. HTTP e AI non possono essere in disaccordo su una regola.</li>
-            <li><span class="t">0:50</span> → Incidente: test verdi per il motivo sbagliato. Un test di race passava una volta su sette col bug presente. Due guardie verdi con la guardia cancellata.</li>
-            <li>Da allora: ogni test va visto fallire prima di fidarsene. È nelle note di lavoro, e l'agente lo fa da solo.</li>
+            <li><span class="t">0:00</span> Ogni struttura dati è definita una volta sola, come schema Zod, in un pacchetto condiviso. La rotta HTTP lo usa per validare il body, il tool MCP come schema di input, l'app come tipo della richiesta.</li>
+            <li>A destra si vede che la rotta e il tool MCP chiamano la stessa funzione del service. La logica sta in un posto solo, quindi un'AI che passa da MCP non può fare niente di diverso da un utente che passa dall'API.</li>
+            <li><span class="t">0:50</span> <span class="cue">clic</span> Qui però abbiamo scoperto che un test verde non dimostra niente, se non l'hai mai visto fallire. Un test su una race condition passava una volta su sette anche con il bug ancora nel codice. Altri due continuavano a passare anche dopo che avevamo cancellato apposta il controllo che dovevano verificare.</li>
+            <li>Da allora, prima di fidarsi di un test lo si lancia sul codice sbagliato e lo si guarda fallire. È scritto nelle note del progetto, e l'agente lo fa da solo.</li>
           </ul>
         </aside>
       </section>
 
       <!-- ═══════════════════ 12. What helps the agent: notes and skills ═══════════════════ -->
       <section class="slide" data-minutes="1.75" data-title="What helps the agent: notes and skills">
-        <h2>What helps the agent: what the last one learned</h2>
+        <h2>What helps the agent: notes left by earlier sessions</h2>
         <div class="commit" style="margin-top: 40px">
           <div class="hash">CLAUDE.md, one of <span data-n="git.workingNotes"></span> working notes</div>
           <blockquote style="font-size: 32px">
@@ -1307,52 +1338,53 @@ apps/app/src/today.ts:1:1: <span class="error">error eslint(no-restricted-import
           </div>
           <div class="step">
             <div class="figure-number"><span data-n="skills.used"></span> of <span data-n="skills.pinned"></span></div>
-            <div class="figure-label">pinned skills from mattpocock/skills that the loop runs on: grill, review, refactor</div>
+            <div class="figure-label">installed skills from mattpocock/skills are the ones I use all the time: questions, review, refactoring</div>
           </div>
         </div>
         <footer class="evidence">CLAUDE.md, “Working notes”; skills-lock.json; github.com/mattpocock/skills</footer>
         <aside class="notes">
           <ul>
-            <li><span class="t">0:00</span> Ogni sessione parte da zero: l'agente non ricorda. Quello che ricorda il progetto, l'agente lo legge.</li>
-            <li>Leggere la nota ad alta voce. Ogni nota è un incidente compresso in una regola, con il suo costo.</li>
-            <li><span class="t">0:40</span> CLAUDE.md è cresciuto da 55 righe: le regole prima del codice. Poi le note, una per incidente.</li>
-            <li>→ Le skill di Matt Pocock: grazie a lui. Ne ho fissate 38 a un commit, il ciclo ne usa tre: interrogarmi, fare review, rifattorizzare.</li>
+            <li><span class="t">0:00</span> Quarta domanda: che cosa aiuta l'agente a scrivere il codice? Ogni sessione parte da zero: l'agente non si ricorda niente di quelle precedenti. Quello che deve sapere lo trova scritto nel repository.</li>
+            <li class="dir">Leggi la nota ad alta voce.</li>
+            <li>Ogni nota nasce da un errore che ci è costato tempo, e dice anche quanto. Qui: una decina di modifiche che non erano state applicate, senza nessun messaggio di errore.</li>
+            <li><span class="t">0:40</span> Al primo commit CLAUDE.md aveva <span data-n="git.claudeLinesM0"></span> righe: c'erano le regole, e ancora nessuna riga di codice. Il resto sono note aggiunte man mano, una per ogni errore.</li>
+            <li><span class="cue">clic</span> Le skill sono di Matt Pocock, e lo ringrazio. Ne ho installate <span data-n="skills.pinned"></span>, fissate a un commit preciso, ma quelle che uso di continuo sono tre: quella che mi fa le domande prima di decidere, la code review e il refactoring.</li>
           </ul>
         </aside>
       </section>
 
-      <!-- ═══════════════════ 13. What helps the agent: the grill and the screenshot ═══════════════════ -->
-      <section class="slide" data-minutes="2" data-title="What helps the agent: the grill, 88 reps">
-        <h2>It asks. I answer.</h2>
+      <!-- ═══════════════════ 13. What helps the agent: its questions, and the screenshot ═══════════════════ -->
+      <section class="slide" data-minutes="2" data-title="What helps the agent: its questions, and the 88 reps bug">
+        <h2>First, the agent asks me questions</h2>
         <div class="figures" style="margin-top: 36px">
           <div>
             <div class="figure-number" data-n="sessions.questions"></div>
-            <div class="figure-label">questions, each with a recommended answer</div>
+            <div class="figure-label">questions, each with the answer it recommends</div>
           </div>
           <div>
             <div class="figure-number" data-n="sessions.yesToAll"></div>
-            <div class="figure-label">times I answered “yes to all”</div>
+            <div class="figure-label">times I replied “yes to all”</div>
           </div>
           <div>
             <div class="figure-number" data-n="sessions.corrections"></div>
-            <div class="figure-label">times I corrected it instead</div>
+            <div class="figure-label">times I corrected it or said no</div>
           </div>
         </div>
         <div class="commit broke step" style="margin-top: 52px">
-          <div class="hash">50e6a66, 24 August</div>
+          <div class="hash">50e6a66, 24 August: a bug that no test caught</div>
           <div class="subject">feat(app): M9, the feature screens, and what the screenshots found</div>
           <blockquote>
             Typing into a prefilled numeric field APPENDED. Tapping “8 reps” and typing 8 logged 88,
             mid-workout, on a phone, into permanent history.
           </blockquote>
         </div>
-        <p class="point step" style="margin-top: 26px">Green in every assertion. Obvious in the screenshot. So it reads every screenshot now.</p>
+        <p class="point step" style="margin-top: 26px">Every test was green, and the bug was obvious in a screenshot. Now the agent looks at a screenshot of every screen.</p>
         <aside class="notes">
           <ul>
-            <li><span class="t">0:00</span> Le decisioni restano mie. L'agente mi interroga: una domanda alla volta, ognuna con la risposta che consiglia.</li>
-            <li>“Sì a tutto” 75 volte: lo leggo come segno che le risposte consigliate sono buone. È anche un rischio, e lo accetto su un progetto personale.</li>
-            <li><span class="t">0:50</span> → Incidente: 88 ripetizioni invece di 8. Ogni test verde.</li>
-            <li>→ Lo screenshot lo mostrava subito. Da allora l'agente fotografa ogni schermata e la guarda.</li>
+            <li><span class="t">0:00</span> Le decisioni le prendo io. Prima di scrivere codice l'agente mi fa una serie di domande, e per ognuna propone la sua risposta: in tre settimane e mezzo me ne ha fatte <span data-n="sessions.questions"></span>.</li>
+            <li><span data-n="sessions.yesToAll"></span> volte ho risposto “sì a tutto”. Io lo leggo come un segno che le risposte proposte erano buone, ma può anche voler dire che approvo senza pensarci. È un rischio che su un progetto personale accetto. Altre <span data-n="sessions.corrections"></span> volte l'ho corretto o gli ho detto di no.</li>
+            <li><span class="t">0:50</span> <span class="cue">clic</span> Un altro errore da raccontare. Nel campo delle ripetizioni c'era già scritto 8; io scrivevo 8 e l'app, invece di sostituire il numero, lo aggiungeva in coda: registrava 88 ripetizioni. Tutti i test erano verdi.</li>
+            <li><span class="cue">clic</span> Bastava guardare lo screenshot per accorgersene. Da allora l'agente fa lo screenshot di ogni schermata e lo guarda, invece di fidarsi solo dei test.</li>
           </ul>
         </aside>
       </section>
@@ -1361,32 +1393,32 @@ apps/app/src/today.ts:1:1: <span class="error">error eslint(no-restricted-import
       <section class="slide" data-minutes="1" data-title="Each kind of slop, and what stops it">
         <h2>Each kind of slop, and what stops it</h2>
         <div class="board">
-          <div class="row"><span class="plate"></span><span>Complexity</span><span class="found">a 300-line cap, five import bans</span></div>
-          <div class="row"><span class="plate"></span><span>Duplication</span><span class="found">one Zod schema per shape</span></div>
-          <div class="row gap step" data-flip="gap"><span class="plate"></span><span>Dead code</span><span class="found"><span class="before">nothing looked past one file</span><span class="after">knip in the gate: it found <span data-n="slop83.deadExports"></span> dead exports</span></span></div>
-          <div class="row"><span class="plate"></span><span>Tests that prove nothing</span><span class="found">every test watched failing</span></div>
-          <div class="row"><span class="plate"></span><span>Almost right</span><span class="found">a fresh-agent review at every step</span></div>
-          <div class="row"><span class="plate"></span><span>Security holes</span><span class="found">relations, a SQL scan, every route walked</span></div>
-          <div class="row gap step" data-flip="gap"><span class="plate"></span><span>Invented packages</span><span class="found"><span class="before">nothing checked a new one</span><span class="after">a written reason each, and a week's age</span></span></div>
-          <div class="row gap step" data-flip="gap"><span class="plate"></span><span>Ignored conventions</span><span class="found"><span class="before">units left to review</span><span class="after">a scan: <span data-n="slop83.conversions"></span> stray conversions moved</span></span></div>
-          <div class="row"><span class="plate"></span><span>Decisions nobody wrote down</span><span class="found">grill, then ADR and glossary</span></div>
-          <div class="row gap step" data-flip="gap"><span class="plate"></span><span>Untested code</span><span class="found"><span class="before">coverage never measured</span><span class="after"><span data-n="slop83.coverageFiles"></span> files, each at 90%</span></span></div>
+          <div class="row"><span class="plate"></span><span>Complexity</span><span class="found">files capped at 300 lines; five import rules in lint</span></div>
+          <div class="row"><span class="plate"></span><span>Duplication</span><span class="found">each data shape is defined once, as a Zod schema</span></div>
+          <div class="row gap step" data-flip="gap"><span class="plate"></span><span>Dead code</span><span class="found"><span class="before">nothing checked for unused code across files</span><span class="after">knip runs in the gate: it found <span data-n="slop83.deadExports"></span> unused exports</span></span></div>
+          <div class="row"><span class="plate"></span><span>Tests that check nothing</span><span class="found">every new test must first fail on the unfixed code</span></div>
+          <div class="row"><span class="plate"></span><span>Code that is almost right</span><span class="found">a review by a new agent after each piece of work</span></div>
+          <div class="row"><span class="plate"></span><span>Security holes</span><span class="found">access functions, a raw-SQL scan, a test for every route</span></div>
+          <div class="row gap step" data-flip="gap"><span class="plate"></span><span>Hallucinated packages</span><span class="found"><span class="before">nothing checked a new package</span><span class="after">each needs a written reason and a version at least a week old</span></span></div>
+          <div class="row gap step" data-flip="gap"><span class="plate"></span><span>Ignored conventions</span><span class="found"><span class="before">unit conversions belong in one file, but only review checked</span><span class="after">a test finds conversions outside that file: <span data-n="slop83.conversions"></span> moved</span></span></div>
+          <div class="row"><span class="plate"></span><span>Decisions nobody wrote down</span><span class="found">questions first, then an ADR and the glossary</span></div>
+          <div class="row gap step" data-flip="gap"><span class="plate"></span><span>Untested code</span><span class="found"><span class="before">coverage was never measured</span><span class="after"><span data-n="slop83.coverageFiles"></span> files measured; each needs 90% coverage</span></span></div>
         </div>
-        <footer class="evidence">The four gaps were found writing this talk, and closed the same evening: nine commits, 19:26 to 20:15 on 9 November (#83)</footer>
+        <footer class="evidence">I found the four gaps while writing this talk and closed them the same evening: nine commits between 19:26 and 20:15 on 9 November (#83)</footer>
         <aside class="notes">
           <ul>
-            <li><span class="t">0:00</span> Ogni sintomo dello slop, e cosa lo ferma. Verde: c'è una guardia. Rosso: no.</li>
-            <li>Quattro buchi. Li ho trovati preparando questo talk.</li>
-            <li><span class="t">0:20</span> → → → → Chiusi la stessa sera, con lo stesso ciclo. E ognuno ha trovato qualcosa: 67 export morti, 21 conversioni fuori posto, 188 file misurati.</li>
-            <li>La guardia nuova ha anche beccato il suo autore: il mio script di coverage. E la review ha trovato un buco nella guardia.</li>
+            <li><span class="t">0:00</span> Rimetto in fila i tipi di slop della slide che abbiamo visto all'inizio, ognuno con quello che in cedo lo ferma. Il pallino verde vuol dire che un controllo c'è, il rosso che manca.</li>
+            <li>I rossi sono quattro, e li ho trovati preparando questo talk: codice morto, pacchetti inventati dal modello, conversioni di unità sparse per il codice, copertura dei test mai misurata.</li>
+            <li><span class="t">0:20</span> <span class="cue">quattro clic</span> Li abbiamo chiusi la sera stessa, con il solito giro. E ogni controllo nuovo ha trovato subito qualcosa: <span data-n="slop83.deadExports"></span> export che nessuno usava, <span data-n="slop83.conversions"></span> conversioni fuori posto, <span data-n="slop83.unregisteredPackages"></span> pacchetti senza una riga che spiegasse perché erano lì.</li>
+            <li>Il controllo sulle conversioni, un'ora dopo essere stato scritto, ha segnalato lo script della coverage, scritto la stessa sera. E la review ha trovato un caso che quel controllo non vede: una conversione nascosta dentro una costante.</li>
           </ul>
         </aside>
       </section>
 
       <!-- ═══════════════════ 15. The limit: #68 ═══════════════════ -->
       <section class="slide" data-minutes="2.5" data-title="The limit: #68">
-        <h2>A bug that went through every guard</h2>
-        <svg class="figure diagram" viewBox="0 0 1376 250" style="margin-top: 40px" role="img" aria-label="Eleven guards drawn as plates on a bar, from CLAUDE.md to the phone; a red line, issue 68, passes through all of them.">
+        <h2>One bug got past every check</h2>
+        <svg class="figure diagram" viewBox="0 0 1376 250" style="margin-top: 40px" role="img" aria-label="Eleven checks drawn as plates on a bar, from CLAUDE.md to the phone; a red line, issue 68, passes through all of them.">
           <rect x="0" y="100" width="1376" height="20" rx="4" fill="var(--raised)" />
           <g fill="var(--surface)" stroke="var(--rule)" stroke-width="3">
             <rect x="37" y="35" width="50" height="150" rx="10" />
@@ -1418,21 +1450,23 @@ apps/app/src/today.ts:1:1: <span class="error">error eslint(no-restricted-import
           </g>
         </svg>
         <p style="margin-top: 36px">
-          An AI editing my live plan over MCP swapped an exercise. The save deleted it, its
-          progression, and the link from three logged sets.
+          An AI editing my real training plan through MCP swapped one exercise for another. Saving
+          the plan deleted the old exercise and its progression, and left three sets I had already
+          logged without an exercise.
         </p>
-        <pre class="step" style="margin-top: 28px; font-size: 21px"><span class="file">apps/api/src/mcp/mcp.test.ts: “exposes no destructive tool”. It checks names, not effects.</span><mark>expect(names.filter((n) =&gt; /delete|remove|destroy/u.test(n))).toEqual([])</mark></pre>
+        <pre class="step" style="margin-top: 28px; font-size: 21px"><span class="file">apps/api/src/mcp/mcp.test.ts, “exposes no destructive tool”: the test only looks at the tools' names</span><mark>expect(names.filter((n) =&gt; /delete|remove|destroy/u.test(n))).toEqual([])</mark></pre>
         <footer class="evidence">github.com/innocentiv/cedo/issues/68, still open</footer>
         <aside class="notes">
           <p class="full">
-            E adesso il limite. Tutto quello che vi ho mostrato è una pila di guardie, dalla più
-            morbida, CLAUDE.md, fino al mio telefono. Questo bug le ha attraversate tutte.
+            E adesso vi faccio vedere dove tutto questo non è bastato. Quelli che vi ho mostrato
+            finora sono controlli messi uno dopo l'altro: dalle istruzioni in CLAUDE.md fino a me
+            che provo l'app sul telefono. Questo bug li ha passati tutti.
           </p>
           <ul>
-            <li><span class="t">0:40</span> Un'AI modificava il mio piano, quello vero, via MCP. Di sua iniziativa ha scambiato un esercizio.</li>
-            <li>Il salvataggio ha cancellato l'esercizio vecchio, la sua progressione, e ha lasciato tre serie registrate senza riferimento. Le ho ricollegate a mano.</li>
-            <li><span class="t">1:30</span> → La guardia che doveva impedirlo: “nessun tool distruttivo”. Controlla i nomi dei tool, non gli effetti. Il salvataggio non si chiama “delete”.</li>
-            <li><span class="t">2:00</span> Le guardie fermano quello che qualcuno ha immaginato. #68 è ancora aperto.</li>
+            <li><span class="t">0:40</span> Un'AI stava modificando via MCP il mio piano di allenamento, quello vero, in produzione. Di sua iniziativa ha sostituito un esercizio con un altro.</li>
+            <li>Al salvataggio il vecchio esercizio è stato cancellato insieme alla sua progressione, e tre serie che avevo già registrato sono rimaste senza l'esercizio a cui appartenevano. Le ho ricollegate a mano.</li>
+            <li><span class="t">1:30</span> <span class="cue">clic</span> Il test che doveva impedirlo c'è, e si chiama “non espone tool distruttivi”. Ma guarda solo i nomi: verifica che nessun tool si chiami delete o remove. Il tool che salva il piano ha un nome innocuo, eppure cancella.</li>
+            <li><span class="t">2:00</span> Quello che ne ho ricavato: i controlli fermano solo gli errori che qualcuno aveva previsto. L'issue 68 è ancora aperta.</li>
           </ul>
         </aside>
       </section>
@@ -1444,31 +1478,31 @@ apps/app/src/today.ts:1:1: <span class="error">error eslint(no-restricted-import
           <div class="stack">
             <div>
               <div class="figure-number" style="font-size: 72px">7 November</div>
-              <div class="figure-label">public in a day: licence, setup, sign-up setting, login rate limit</div>
+              <div class="figure-label">the repository went public in one day: licence, setup script, sign-up setting, login rate limit</div>
             </div>
             <div>
               <div class="figure-number" style="font-size: 72px">8 November</div>
-              <div class="figure-label">the iPhone app in a day: decided at 09:49, installed from a release by 18:32</div>
+              <div class="figure-label">the iPhone app in one day: decided at 09:49, installed on my phone from a release at 18:32</div>
             </div>
             <div>
               <div class="figure-number" style="font-size: 72px">≈ US$100</div>
-              <div class="figure-label">a month, flat, shared with my other projects</div>
+              <div class="figure-label">a month: a flat subscription I also use for my other projects</div>
             </div>
           </div>
           <div class="demo-slot" data-video="assets/mcp-demo.mp4">
             <div class="demo-placeholder">
-              <h3>Recorded: an AI reviews last week</h3>
-              <p class="muted">Claude Code, connected to cedo's MCP server, reads a week of training and says what to change. About a minute, sped up.</p>
+              <h3>Recorded demo: an AI reviews a week of training</h3>
+              <p class="muted">Claude Code, connected to cedo's MCP server, reads a week of training and suggests what to change. About one minute, sped up.</p>
             </div>
           </div>
         </div>
-        <footer class="evidence">Times UTC, from the session transcripts; ADR-0032, release v0.1.0</footer>
+        <footer class="evidence">Times are UTC, from the session transcripts; ADR-0032; release v0.1.0</footer>
         <aside class="notes">
           <ul>
-            <li><span class="t">0:00</span> Cosa ha reso possibile. Il repo pubblico in un giorno: licenza, setup, rate limit, tre ADR.</li>
-            <li>L'app iPhone in un giorno: la decisione alle 9:49, installata sul telefono alle 18:32. Senza l'agente non l'avrei fatta: Xcode, AlarmKit, firma, non sono il mio mestiere.</li>
-            <li><span class="t">0:50</span> VIDEO: l'agente legge una settimana di allenamenti via MCP e mi dice cosa cambiare. Solo tool in lettura.</li>
-            <li><span class="t">1:45</span> Il costo: circa 100 dollari al mese, fissi, condivisi con gli altri progetti.</li>
+            <li><span class="t">0:00</span> Adesso i vantaggi: che cosa sono riuscito a fare lavorando così. Il 7 novembre il repository è diventato pubblico in una giornata: licenza, script di setup, un'impostazione per aprire o chiudere le registrazioni, rate limit sul login.</li>
+            <li>L'8 novembre, l'app per iPhone: decisa alle 9:49 del mattino, alle 18:32 era installata sul mio telefono. Senza l'agente non l'avrei fatta: Xcode, la firma delle app e le API native di iOS non sono il mio mestiere.</li>
+            <li><span class="t">0:50</span> <span class="dir">Video, un minuto.</span> Qui Claude Code è collegato al server MCP di cedo: legge una settimana di allenamenti e mi dice che cosa cambierebbe. Usa solo tool di lettura.</li>
+            <li><span class="t">1:45</span> Quanto costa: un abbonamento da circa 100 dollari al mese, che uso anche per tutti gli altri miei progetti.</li>
           </ul>
         </aside>
       </section>
@@ -1477,25 +1511,26 @@ apps/app/src/today.ts:1:1: <span class="error">error eslint(no-restricted-import
       <section class="slide" data-minutes="2.5" data-title="Five things to copy on Monday">
         <h2>Five things to copy on Monday</h2>
         <ol class="take-homes">
-          <li><span><strong>Build the gate before the first feature.</strong><span class="against">Slop arrives faster than anyone checks it.</span></span></li>
-          <li><span><strong>Turn each rule into lint or a test, with a message written for the agent.</strong><span class="against">Ignored conventions, complexity.</span></span></li>
-          <li><span><strong>Watch every test fail before you trust it.</strong><span class="against">Tests that prove nothing.</span></span></li>
-          <li><span><strong>Have a fresh agent review at every boundary.</strong><span class="against">Almost right; more code than anyone can read.</span></span></li>
-          <li><span><strong>Let the agent grill you, and write the answers down.</strong><span class="against">Decisions nobody wrote down, and an agent that forgets between sessions.</span></span></li>
+          <li><span><strong>Set up the gate before the first feature.</strong><span class="against">Prevents: code piling up faster than anyone checks it.</span></span></li>
+          <li><span><strong>Turn each rule into a lint rule or a test, with an error message written for the agent.</strong><span class="against">Prevents: ignored conventions and growing complexity.</span></span></li>
+          <li><span><strong>See every new test fail before you rely on it.</strong><span class="against">Prevents: tests that check nothing.</span></span></li>
+          <li><span><strong>Have a new agent, with no context, review each piece of work.</strong><span class="against">Prevents: code that is almost right, and code that nobody reviews.</span></span></li>
+          <li><span><strong>Have the agent ask you questions first, and keep the answers in the repo.</strong><span class="against">Prevents: undocumented decisions, and an agent that starts every session knowing nothing.</span></span></li>
         </ol>
         <aside class="notes">
           <p class="full">
-            Se lunedì volete provarci, ecco cinque cose da copiare. Ognuna risponde a un sintomo
-            dello slop.
+            Se lunedì volete provare, queste sono le cinque cose che copierei. Ognuna serve contro
+            uno dei tipi di slop che abbiamo visto.
           </p>
           <ul>
-            <li><span class="t">0:20</span> Il gate prima della prima feature: il mio primo commit non aveva feature, solo regole.</li>
-            <li>Ogni regola diventa lint o test, con un messaggio scritto per l'agente.</li>
-            <li>Ogni test visto fallire. Una review fresca a ogni confine. E fatevi interrogare, e scrivete le risposte.</li>
+            <li><span class="t">0:20</span> Uno: il gate va messo in piedi prima ancora di scrivere la prima feature. Il mio primo commit non conteneva nessuna feature: solo le regole e i controlli.</li>
+            <li>Due: ogni regola deve diventare una regola di lint o un test, con un messaggio di errore pensato per l'agente.</li>
+            <li>Tre: ogni test nuovo va visto fallire. Quattro: alla fine di ogni pezzo di lavoro, una review fatta da un agente che parte da zero. Cinque: fatevi fare le domande dall'agente, e lasciate le risposte scritte nel repository.</li>
           </ul>
           <p class="full">
-            Si può fare vibe coding senza slop. Non perché l'agente sia bravo, ma perché il
-            progetto non accetta codice che non si dimostra da solo.
+            Quindi sì, si può fare vibe coding senza produrre slop, a patto che il progetto non
+            accetti codice finché non si è dimostrato che funziona. La qualità di cedo, per me,
+            dipende da questi controlli più che dall'agente.
           </p>
         </aside>
       </section>
@@ -1511,54 +1546,61 @@ apps/app/src/today.ts:1:1: <span class="error">error eslint(no-restricted-import
         <footer class="evidence">Numbers as of commit <span class="hash" data-n="asOf.commit"></span>, <span data-n="asOf.date"></span>. Session counts from 15 October to 9 November.</footer>
         <aside class="notes">
           <p class="full">
-            Grazie. Le slide, il codice di cedo e le skill sono a questi indirizzi. Ho cinque
-            minuti per le vostre domande.
+            Grazie. Le slide, il codice di cedo e le skill li trovate a questi indirizzi. Abbiamo
+            cinque minuti per le domande.
           </p>
         </aside>
       </section>
 
       <!-- ═══════════════════ Backups ═══════════════════ -->
-      <section class="slide backup" data-title="Backup: the literature">
+      <section class="slide backup" data-title="Backup: what the studies say">
         <h2>What the studies say</h2>
         <ul class="plated" style="margin-top: 44px">
-          <li><span class="plate faint"></span><span>Experienced developers were 19% slower with AI while believing they were 20% faster (METR, 2025; METR now calls it out of date).</span></li>
-          <li><span class="plate faint"></span><span>Delivery stability fell 7.2% with AI adoption (DORA 2024), and stayed negative in 2025.</span></li>
-          <li><span class="plate faint"></span><span>Copy and paste rose from 8.3% to 12.3% of changed lines, 2021 to 2024 (GitClear, vendor data).</span></li>
-          <li><span class="plate faint"></span><span>5.2% to 21.7% of suggested packages did not exist (USENIX Security 2025): register one and wait.</span></li>
-          <li><span class="plate faint"></span><span>About half of test-passing agent pull requests would not be merged (METR, 2026).</span></li>
+          <li><span class="plate faint"></span><span>Experienced developers were 19% slower with AI, and thought they were 20% faster (METR, 2025, which METR now calls out of date).</span></li>
+          <li><span class="plate faint"></span><span>Delivery stability fell 7.2% where teams adopted AI (DORA 2024), and was still down in 2025.</span></li>
+          <li><span class="plate faint"></span><span>Copy-pasted code went from 8.3% to 12.3% of changed lines between 2021 and 2024 (GitClear, vendor data).</span></li>
+          <li><span class="plate faint"></span><span>5.2% to 21.7% of the packages that models suggested did not exist (USENIX Security 2025), so anyone can register those names.</span></li>
+          <li><span class="plate faint"></span><span>About half of the agent pull requests that pass their tests would still not be merged (METR, 2026).</span></li>
           <li><span class="plate faint"></span><span>“The slop situation is not a problem anymore.” (curl, April 2026)</span></li>
         </ul>
         <footer class="evidence">metr.org, cloud.google.com DORA, gitclear.com, arxiv.org/abs/2406.10279, daniel.haxx.se</footer>
-        <aside class="notes"><ul><li>Solo se chiedono dei dati. METR: più lenti credendosi più veloci. DORA: stabilità giù. curl: lo slop non è più un problema, quasi tutti i report ora sono scritti con l'AI.</li></ul></aside>
+        <aside class="notes">
+          <ul>
+            <li class="dir">Solo se qualcuno chiede i dati.</li>
+            <li>Lo studio METR del 2025: sviluppatori esperti più lenti del 19% con l'AI, e convinti di essere stati più veloci del 20%. METR stessa oggi lo considera superato.</li>
+            <li>DORA: dove si adotta l'AI la stabilità dei rilasci peggiora, nel 2024 e ancora nel 2025.</li>
+            <li>Il maintainer di curl, ad aprile 2026, scrive che lo slop non è più un problema, e lo scrive quando ormai quasi tutte le segnalazioni che riceve sono fatte con l'AI.</li>
+          </ul>
+        </aside>
       </section>
 
       <section class="slide backup" data-title="Backup: cost and tokens">
         <h2>What it cost</h2>
         <div class="figures" style="margin-top: 60px">
-          <div><div class="figure-number">≈ $100</div><div class="figure-label">a month, a flat subscription shared with my other projects</div></div>
+          <div><div class="figure-number">≈ $100</div><div class="figure-label">a month: a flat subscription I also use for my other projects</div></div>
           <div><div class="figure-number" data-n="sessions.hours"></div><div class="figure-label">hours of active sessions, 15 October to 9 November</div></div>
         </div>
         <div class="figures">
           <div><div class="figure-number" data-n="sessions.outputTokens"></div><div class="figure-label">output tokens</div></div>
-          <div><div class="figure-number" data-n="sessions.cacheTokens"></div><div class="figure-label">tokens read from the cache: a measure of context, not a bill</div></div>
+          <div><div class="figure-number" data-n="sessions.cacheTokens"></div><div class="figure-label">tokens read from the cache: they show how much context was used, not what I paid</div></div>
         </div>
-        <aside class="notes"><ul><li>Non ho un costo per progetto: l'abbonamento è fisso. I token sono un'indicazione, non una fattura.</li></ul></aside>
+        <aside class="notes"><ul><li>Non so dire quanto è costato cedo da solo: l'abbonamento ha un prezzo fisso e lo uso per tutti i miei progetti. I token danno un'idea di quanto ha lavorato l'agente, ma non corrispondono a una spesa.</li></ul></aside>
       </section>
 
       <section class="slide backup" data-title="Backup: would I do this at work?">
         <h2>Would I do this at work?</h2>
-        <p class="lede">Not like this. I would read the code, as Ghostty asks.</p>
+        <p class="lede">Not in the same way: at work I would read the code.</p>
         <ul class="plated" style="margin-top: 44px">
-          <li><span class="plate broke"></span><span>“Yes to all” <span data-n="sessions.yesToAll"></span> times: good answers, or a rubber stamp. The transcripts can't tell.</span></li>
-          <li><span class="plate broke"></span><span>Understanding debt: <span data-n="git.commits"></span> commits I mostly did not read.</span></li>
-          <li><span class="plate broke"></span><span>Production is one push away: a push to main deploys.</span></li>
-          <li><span class="plate held"></span><span>What I would keep: the gate first, rules as lint and tests, fresh reviews, written decisions.</span></li>
+          <li><span class="plate broke"></span><span>I answered “yes to all” <span data-n="sessions.yesToAll"></span> times. The transcripts don't show whether the answers were good or I had just stopped checking.</span></li>
+          <li><span class="plate broke"></span><span>I have not read most of the <span data-n="git.commits"></span> commits, so I know this code less well than code I wrote myself.</span></li>
+          <li><span class="plate broke"></span><span>A push to main deploys to production, so a mistake gets there fast.</span></li>
+          <li><span class="plate held"></span><span>What I would keep: the gate from day one, rules as lint and tests, reviews by a new agent, written decisions.</span></li>
         </ul>
-        <aside class="notes"><ul><li>Al lavoro leggerei il codice. Terrei tutto il resto: il gate, le regole come test, le review, le decisioni scritte.</li></ul></aside>
+        <aside class="notes"><ul><li>Sul lavoro il codice lo leggerei. Tutto il resto lo terrei uguale: il gate dal primo giorno, le regole trasformate in lint e test, le review fatte da un agente che parte da zero, le decisioni messe per iscritto.</li></ul></aside>
       </section>
 
       <section class="slide backup" data-title="Backup: a lint message written for the agent">
-        <h3 class="muted">A lint message written for the agent</h3>
+        <h3 class="muted">A lint error message written for the agent to read</h3>
         <pre style="margin-top: 36px"><span class="file">.oxlintrc.typeaware.json</span>{
   "group": ["**/db/schema.ts", "**/db/schema", "**/db/tables/*"],
   "importNames": ["exercises", "exerciseMuscles", "exerciseMedia",
@@ -1567,22 +1609,26 @@ apps/app/src/today.ts:1:1: <span class="error">error eslint(no-restricted-import
   <mark>"message": "Read owned tables through db/visible.ts (visibleExercises(caller), …).</mark>
     <mark>Writes belong in the module's write*.ts. See docs/adr/0019-visible-relations.md."</mark>
 }</pre>
-        <p class="lede">The refusal says what to do instead, and where the reason is.</p>
-        <aside class="notes"><ul><li>Il messaggio di errore dice cosa fare e dove sta il perché.</li></ul></aside>
+        <p class="lede">The error says what to do instead, and where the reason is written down.</p>
+        <aside class="notes"><ul><li>Il messaggio non dice solo che l'import è vietato: dice che cosa usare al suo posto e in quale documento è spiegato il perché. L'agente lo legge e sa già come correggersi.</li></ul></aside>
       </section>
 
-      <section class="slide backup" data-title="Backup: a capability the compiler checks">
-        <h3 class="muted">Whose data a read is of: a capability the compiler checks</h3>
+      <section class="slide backup" data-title="Backup: access checked by the compiler">
+        <h3 class="muted">The compiler checks that an athlete's data is read through the access check</h3>
         <pre style="margin-top: 36px"><span class="file">apps/api/src/modules/coaching/training.test.ts</span><span class="c">/** A `Training` written by hand names an athlete the caller was never
  *  checked against, and does not compile. `tsc` is the test. */</span>
 const forged = (reader: Caller, athleteId: string): Training =&gt;
   <mark>// @ts-expect-error — not resolved: no `own` or `ownOrCoached` said whose it is.</mark>
   ({ reader, athleteId })</pre>
-        <aside class="notes"><ul><li>Un tipo che si ottiene solo passando per il controllo d'accesso. Il compilatore è il test.</li></ul></aside>
+        <p class="lede">
+          A <code>Training</code> value only comes from the functions that check access. Building
+          one by hand does not compile.
+        </p>
+        <aside class="notes"><ul><li>Il tipo <code>Training</code> si ottiene solo passando dalle funzioni che controllano i permessi. Se qualcuno prova a costruirlo a mano, il codice non compila: qui il test lo fa il compilatore.</li></ul></aside>
       </section>
 
-      <section class="slide backup" data-title="Backup: a perf guard">
-        <h3 class="muted">A performance guard: plans asserted, not timings</h3>
+      <section class="slide backup" data-title="Backup: a performance test">
+        <h3 class="muted">A performance test that checks the query plan, not the time</h3>
         <pre style="margin-top: 36px"><span class="file">apps/api/src/test/perf/hot-paths.ts</span>{
   name: 'GET /sessions (list)',
   dimension: 'page size (5 vs 50)',
@@ -1593,12 +1639,12 @@ const forged = (reader: Caller, athleteId: string): Training =&gt;
   run: async (fixtures, size) =&gt;
     await listSessions(own(fixtures.large.caller), { limit: PAGE[size] }),
 }</pre>
-        <p class="lede">The same query count at 5 and at 50 rows, on 250,000 logged sets.</p>
-        <aside class="notes"><ul><li>N+1 come invariante: stesso numero di query a 5 e a 50. E il piano, non il tempo.</li></ul></aside>
+        <p class="lede">The query count must be the same for a page of 5 and a page of 50, on 250,000 logged sets.</p>
+        <aside class="notes"><ul><li>Il test non misura i tempi, che cambiano da una macchina all'altra. Controlla due cose: che il numero di query resti lo stesso con 5 o con 50 righe, così un N+1 salta fuori subito, e che Postgres usi gli indici invece di scorrere tutta la tabella.</li></ul></aside>
       </section>
 
-      <section class="slide backup" data-title="Backup: a deploy key that can say one thing">
-        <h3 class="muted">A deploy key that can say one thing</h3>
+      <section class="slide backup" data-title="Backup: the deploy key">
+        <h3 class="muted">The deploy key can run only one command</h3>
         <pre style="margin-top: 36px"><span class="file">scripts/deploy-ssh.sh</span>read -r verb sha extra &lt;&lt;&lt;"${SSH_ORIGINAL_COMMAND:-}"
 <mark>if [[ ${verb:-} != deploy || ! ${sha:-} =~ ^[0-9a-f]{40}$ || -n ${extra:-} ]]; then</mark>
   echo "usage: deploy &lt;40-character commit sha&gt;" &gt;&amp;2
@@ -1609,7 +1655,7 @@ git fetch --quiet origin main
   echo "$sha is not on main: refusing to deploy it" &gt;&amp;2
   exit 65
 fi</pre>
-        <aside class="notes"><ul><li>La chiave di deploy sa dire una cosa sola: “deploya questo commit di main”. Niente altro.</li></ul></aside>
+        <aside class="notes"><ul><li>La chiave SSH che la CI usa per il deploy può fare una cosa sola: chiedere il deploy di un commit che sta su main. Qualsiasi altro comando viene rifiutato.</li></ul></aside>
       </section>
     </main>
 
